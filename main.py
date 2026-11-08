@@ -154,7 +154,9 @@ def main():
    elif e.type==pygame.KEYDOWN and e.key==pygame.K_ESCAPE:
     if state=="home": running=False
     else: state="home"
-   elif e.type in (pygame.MOUSEBUTTONUP,pygame.FINGERUP):\n    held=False\n   elif e.type in (pygame.MOUSEBUTTONDOWN,pygame.FINGERDOWN):
+   elif e.type in (pygame.MOUSEBUTTONUP,pygame.FINGERUP):
+    held=False
+   elif e.type in (pygame.MOUSEBUTTONDOWN,pygame.FINGERDOWN):
     p=(int(e.x*W),int(e.y*H)) if e.type==pygame.FINGERDOWN else e.pos
     for r,a in reversed(buttons):
      if r.collidepoint(p): act(a); break
