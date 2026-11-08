@@ -19,8 +19,8 @@ jobs:
           pip install -r requirements.txt
       - name: Compile Python
         run: python -m py_compile main.py
-      - name: Smoke test Pygame initialization
+      - name: Smoke test game startup and first frame
         env:
           SDL_VIDEODRIVER: dummy
           SDL_AUDIODRIVER: dummy
-        run: python -c "import pygame; pygame.init(); pygame.display.set_mode((1, 1)); print('Pygame OK')"
+        run: python -c "import main; main.draw(); main.pygame.display.flip(); print('FISHING LIFE first frame OK')"
