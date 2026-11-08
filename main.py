@@ -84,34 +84,34 @@ def draw():
  global buttons
  buttons=[]; bg(); header()
  if state in ("home","waiting","fight","caught"):
-  box((16,82,448,76)); txt(PLACES[data["place"]][0],240,95,BIG,(255,238,180),True); txt(f"Đã câu: {data['caught']} • Kỷ lục: {data['best']:.2f} kg",240,137,S,(220,235,220),True)
+  box((16,82,448,76)); txt(PLACES[data["place"]][0],240,95,B,(255,238,180),True); txt(f"Đã câu: {data['caught']} • Kỷ lục: {data['best']:.2f} kg",240,137,S,(220,235,220),True)
   if state=="home":
    box((32,490,416,125)); txt("Sẵn sàng cho chuyến câu cá?",240,510,F,(255,255,230),True); txt("Khám phá 50 loài cá tại 8 vùng nước!",240,544,S,(205,225,220),True); btn("THẢ CẦN",(125,565,230,38),"cast")
   elif state=="waiting":
-   box((32,490,416,125)); txt("ĐANG CHỜ CÁ CẮN CÂU...",240,515,BIG,(255,238,170),True); txt("Mặt nước gợn sóng... hãy kiên nhẫn",240,560,S,(220,235,225),True); btn("THU CẦN",(150,570,180,34),"cancel",(100,75,65))
+   box((32,490,416,125)); txt("ĐANG CHỜ CÁ CẮN CÂU...",240,515,B,(255,238,170),True); txt("Mặt nước gợn sóng... hãy kiên nhẫn",240,560,S,(220,235,225),True); btn("THU CẦN",(150,570,180,34),"cancel",(100,75,65))
   elif state=="fight":
-   box((24,475,432,155)); txt("CÁ ĐÃ CẮN CÂU!",240,490,BIG,(255,220,130),True); pygame.draw.rect(screen,(45,65,70),(55,540,370,22),border_radius=8); pygame.draw.rect(screen,(90,220,145),(55,540,int(370*progress),22),border_radius=8); txt("Giữ nút KÉO CÁ để tăng tiến độ",240,570,S,(235,240,220),True); btn("KÉO CÁ",(125,590,230,38),"reel",(45,125,85))
+   box((24,475,432,155)); txt("CÁ ĐÃ CẮN CÂU!",240,490,B,(255,220,130),True); pygame.draw.rect(screen,(45,65,70),(55,540,370,22),border_radius=8); pygame.draw.rect(screen,(90,220,145),(55,540,int(370*progress),22),border_radius=8); txt("Giữ nút KÉO CÁ để tăng tiến độ",240,570,S,(235,240,220),True); btn("KÉO CÁ",(125,590,230,38),"reel",(45,125,85))
   else:
-   box((32,480,416,145)); f=data["fish"][-1]; txt("BẮT ĐƯỢC CÁ!",240,493,BIG,(255,230,130),True); txt(f["name"],240,535,F,COL[f["rarity"]],True); txt(f"{f['rarity']} • {f['weight']} kg • {f['value']} G",240,562,S,(240,240,220),True); btn("CÂU TIẾP",(48,585,175,34),"cast"); btn("BÁN TẤT CẢ",(242,585,185,34),"sell")
+   box((32,480,416,145)); f=data["fish"][-1]; txt("BẮT ĐƯỢC CÁ!",240,493,B,(255,230,130),True); txt(f["name"],240,535,F,COL[f["rarity"]],True); txt(f"{f['rarity']} • {f['weight']} kg • {f['value']} G",240,562,S,(240,240,220),True); btn("CÂU TIẾP",(48,585,175,34),"cast"); btn("BÁN TẤT CẢ",(242,585,185,34),"sell")
   footer()
  elif state=="shop":
-  box((18,85,444,585)); txt("CỬA HÀNG NÂNG CẤP",240,105,BIG,(255,230,150),True)
+  box((18,85,444,585)); txt("CỬA HÀNG NÂNG CẤP",240,105,B,(255,230,150),True)
   for i,(k,n,c) in enumerate([("rod","Cần câu",100),("line","Dây câu",85),("reel","Máy câu",90),("bait","Mồi câu",120)]):
    y=165+i*103; box((34,y,412,84),(27,67,76)); txt(f"{n} • Cấp {data[k]}/10",48,y+10,F); txt(f"Giá: {c*data[k]} G",48,y+45,S,(230,215,160)); btn("NÂNG CẤP",(290,y+22,135,38),"up_"+k)
   btn("QUAY LẠI",(140,620,200,40),"back")
  elif state=="places":
-  box((18,85,444,585)); txt("BẢN ĐỒ CÂU CÁ",240,105,BIG,(255,230,150),True)
+  box((18,85,444,585)); txt("BẢN ĐỒ CÂU CÁ",240,105,B,(255,230,150),True)
   for i,(name,cost,mult) in enumerate(PLACES):
    y=160+i*61; ok=(i==0 or data["level"]>=i+1); txt(f"{i+1}. {name}",38,y,F,(255,245,220) if ok else (135,145,145)); txt("ĐÃ MỞ" if ok else f"Mở ở cấp {i+1}",38,y+25,S,(130,225,160) if ok else (210,170,130)); btn("ĐI",(355,y+3,70,38),"place_"+str(i),(40,110,100) if ok else (80,80,80))
   btn("QUAY LẠI",(140,650,200,38),"back")
  elif state=="collection":
-  box((18,85,444,585)); txt(f"BỘ SƯU TẬP • {len(data['fish'])} cá",240,105,BIG,(255,230,150),True)
+  box((18,85,444,585)); txt(f"BỘ SƯU TẬP • {len(data['fish'])} cá",240,105,B,(255,230,150),True)
   for i,f in enumerate(data["fish"][-9:][::-1]):
    y=160+i*48; txt(f["name"],38,y,F,COL[f["rarity"]]); txt(f"{f['weight']}kg • {f['value']}G",430,y+3,S,(230,225,200))
   if not data["fish"]: txt("Chưa có cá. Hãy thả cần!",240,300,F,(220,230,220),True)
   btn("BÁN TẤT CẢ",(55,625,165,38),"sell"); btn("QUAY LẠI",(245,625,180,38),"back")
  elif state=="missions":
-  box((18,85,444,585)); txt("NHIỆM VỤ & THÀNH TÍCH",240,105,BIG,(255,230,150),True)
+  box((18,85,444,585)); txt("NHIỆM VỤ & THÀNH TÍCH",240,105,B,(255,230,150),True)
   for i,(n,target,val) in enumerate([("Bắt 5 con cá",5,data["caught"]),("Bắt 20 con cá",20,data["caught"]),("Đạt cấp 5",5,data["level"])]):
    y=185+i*120; box((35,y,410,90),(27,67,76)); txt(n,52,y+10,F); txt(f"Tiến độ: {min(target,val)}/{target}",52,y+48,S,(210,225,205))
    if val>=target and not data["claimed"][i]: btn("NHẬN +"+str((i+1)*100),(290,y+25,135,38),"claim_"+str(i))
