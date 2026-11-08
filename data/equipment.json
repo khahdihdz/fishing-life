@@ -1,0 +1,18 @@
+{
+  "rod": {
+    "maxLevel": 10,
+    "baseCost": 100
+  },
+  "line": {
+    "maxLevel": 10,
+    "baseCost": 85
+  },
+  "reel": {
+    "maxLevel": 10,
+    "baseCost": 90
+  },
+  "bait": {
+    "maxLevel": 10,
+    "baseCost": 120
+  }
+}
