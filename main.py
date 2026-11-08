@@ -48,7 +48,7 @@ def bg():
  pygame.draw.line(screen,(40,55,57),(110,312),(193,260),5); pygame.draw.line(screen,(225,220,170),(193,260),(226,390),2)
  pygame.draw.rect(screen,(22,51,62),(0,0,W,64))
 def header():
- txt("FISHING LIFE",14,12,BIG,(255,232,157)); txt(f"Lv.{data['level']}  {data['money']:,} G",W-12,20,S,(255,245,190))
+ txt("FISHING LIFE",14,12,B,(255,232,157)); txt(f"Lv.{data['level']}  {data['money']:,} G",W-12,20,S,(255,245,190))
 def footer():
  box((10,686,460,104),(12,45,58)); btn("🎣 CÂU CÁ",(18,695,138,36),"cast"); btn("CỬA HÀNG",(169,695,135,36),"shop"); btn("ĐỊA ĐIỂM",(316,695,136,36),"places"); btn("BỘ SƯU TẬP",(18,740,205,34),"collection",(54,88,105)); btn("NHIỆM VỤ",(239,740,213,34),"missions",(54,88,105))
 def pick():
