@@ -26,7 +26,7 @@ try:
  data=fresh(); data.update(json.loads(SAVE.read_text(encoding="utf8")))
 except Exception: data=fresh()
 def save(): SAVE.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding="utf8")
-state="home"; note="Chào mừng đến Hồ Bình Minh!"; note_t=3; buttons=[]; bite=0; progress=0; current=None
+state="home"; held=False; note="Chào mừng đến Hồ Bình Minh!"; note_t=3; buttons=[]; bite=0; progress=0; current=None
 def txt(v,x,y,font=F,color=(245,245,230),center=False):
  im=font.render(str(v),True,color); screen.blit(im,(x-im.get_width()//2 if center else x,y))
 def box(r,c=(17,49,62),b=(95,160,155)):
@@ -123,7 +123,7 @@ def act(a):
  global state,progress
  if a=="cast": cast()
  elif a=="cancel": state="home"; say("Đã thu cần câu.")
- elif a=="reel" and state=="fight": progress=min(1,progress+.105+.012*data["reel"])
+ elif a=="reel" and state=="fight": pass
  elif a in ("shop","places","collection","missions"): state=a
  elif a=="back": state="home"
  elif a=="sell": sell()
@@ -137,7 +137,7 @@ def act(a):
   if goals[i][1]>=goals[i][0] and not data["claimed"][i]:
    reward=(i+1)*100; data["money"]+=reward; data["claimed"][i]=True; say(f"Nhận thưởng +{reward} G"); save()
 def main():
- global state,bite,progress,note_t
+ global state,bite,progress,note_t,held
  running=True
  while running:
   dt=min(clock.tick(60)/1000,.05)
@@ -146,7 +146,7 @@ def main():
    bite-=dt
    if bite<=0: state="fight"; say("Cá cắn câu! Chạm KÉO CÁ!")
   if state=="fight":
-   progress=max(0,progress-dt*.025)
+   progress=min(1,progress+dt*(.42+.035*data["reel"])) if held else max(0,progress-dt*.035)
    if progress>=1: land()
    elif random.random()<dt*.025 and progress<.15: state="home"; say("Cá đã thoát! Thử lại nhé.")
   for e in pygame.event.get():
@@ -154,7 +154,7 @@ def main():
    elif e.type==pygame.KEYDOWN and e.key==pygame.K_ESCAPE:
     if state=="home": running=False
     else: state="home"
-   elif e.type in (pygame.MOUSEBUTTONDOWN,pygame.FINGERDOWN):
+   elif e.type in (pygame.MOUSEBUTTONUP,pygame.FINGERUP):\n    held=False\n   elif e.type in (pygame.MOUSEBUTTONDOWN,pygame.FINGERDOWN):
     p=(int(e.x*W),int(e.y*H)) if e.type==pygame.FINGERDOWN else e.pos
     for r,a in reversed(buttons):
      if r.collidepoint(p): act(a); break
